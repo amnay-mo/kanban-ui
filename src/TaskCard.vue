@@ -4,9 +4,9 @@
         {{ task.text }}
     </div>
     <footer class="card-footer">
-        <a class="card-footer-item" @click="decrementTask">🡄</a>
-        <a class="card-footer-item" @click="incrementTask">🡆</a>
-        <a class="card-footer-item delete-button" @click="deleteTask">❌</a>
+        <a class="card-footer-item" @click="decrementTask"><</a>
+        <a class="card-footer-item" @click="incrementTask">></a>
+        <a class="card-footer-item delete-button" @click="deleteTask">x</a>
     </footer>
     </div>
 </template>
