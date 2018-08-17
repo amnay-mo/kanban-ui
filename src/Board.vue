@@ -9,27 +9,21 @@
           <span class="tag">To Do</span>
           <span class="tag is-dark">{{ tasksToDo.length }}</span>
         </div>
-        <transition-group name="fade">
           <task-card :task="task" v-for="task in tasksToDo" :key="task.id"></task-card>
-        </transition-group>
       </div>
       <div class="column status-2">
         <div class="tags has-addons">
           <span class="tag">In Progress</span>
           <span class="tag is-dark">{{ tasksInProgress.length }}</span>
         </div>
-        <transition-group name="fade">
           <task-card :task="task" v-for="task in tasksInProgress" :key="task.id"></task-card>
-        </transition-group>
       </div>
       <div class="column status-3">
         <div class="tags has-addons">
           <span class="tag">Done</span>
           <span class="tag is-dark">{{ tasksDone.length }}</span>
         </div>
-        <transition-group name="fade">
           <task-card :task="task" v-for="task in tasksDone" :key="task.id"></task-card>
-        </transition-group>
       </div>
     </div>
   </div>
@@ -45,7 +39,7 @@ export default {
   data() {
     return {
       newTaskText: "",
-      tasks: [],
+      tasks: []
     };
   },
   computed: {
@@ -67,13 +61,11 @@ export default {
   },
   methods: {
     postTask(task) {
-      return this.$http
-        .post("tasks", task)
-        .then(response => {
-          let newID = response.body.id;
-          console.log(`Got POST response: ${newID}`);
-          return newID;
-        });
+      return this.$http.post("tasks", task).then(response => {
+        let newID = response.body.id;
+        console.log(`Got POST response: ${newID}`);
+        return newID;
+      });
     },
     deleteTask(task) {
       this.$http.delete("tasks" + task.id);
@@ -101,11 +93,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-@import '~bulma';
-
 .input {
-  font-family: 'C64';
+  font-family: "C64";
   text-align: center;
   width: 100%;
   border-color: chocolate;
@@ -126,12 +115,5 @@ export default {
   padding-top: 0px;
   padding-bottom: 0px;
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.7s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
+
 </style>

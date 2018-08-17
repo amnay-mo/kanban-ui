@@ -6,7 +6,7 @@
     <footer class="card-footer">
         <a class="card-footer-item" @click="decrementTask"><</a>
         <a class="card-footer-item" @click="incrementTask">></a>
-        <a class="card-footer-item delete-button" @click="deleteTask">x</a>
+        <a class="card-footer-item delete-button" @click="deleteTask">X</a>
     </footer>
     </div>
 </template>
@@ -16,25 +16,30 @@ export default {
     props: ['task'],
     methods: {
         incrementTask() {
-            if (this.task.status <= 2)
-            this.task.status += 1
-            this.$http.patch(`tasks/${this.task.id}`, {status: this.task.status})
+            if (this.task.status <= 2) {
+                this.task.status += 1
+                this.$http.patch(`tasks/${this.task.id}`, {status: this.task.status})
+                this.$emit('horizontalMove', 'right')
+            }
         },
         decrementTask() {
-            if (this.task.status >= 2)
-            this.task.status -= 1
-            this.$http.patch(`tasks/${this.task.id}`, {status: this.task.status})
+            if (this.task.status >= 2) {
+                this.task.status -= 1
+                this.$http.patch(`tasks/${this.task.id}`, {status: this.task.status})
+                this.$emit('horizontalMove', 'left')
+            }
         },
         deleteTask() {
             this.task.status = 0
             this.$http.delete(`tasks/${this.task.id}`)
+            this.$emit('removal')
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~bulma';
+
 
 .status-1 {
   background-color: #ed8077;
