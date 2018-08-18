@@ -4,11 +4,6 @@ branches:
 
 sudo: required
 
-addons:
-  apt:
-    packages:
-      - docker-ce
-
 services:
   - docker
 
@@ -31,6 +26,7 @@ script:
 
 deploy:
   provider: script
+  skip_cleanup: true
   script: .travis/deploy.sh
   on:
     tags: true
