@@ -3,7 +3,7 @@
 set -ex
 
 if [ ! -e ${HOME}/google-cloud-sdk/bin/gcloud ]; then
-   curl https://sdk.cloud.google.com | bash;
+   curl https://sdk.cloud.google.com | bash >> /dev/null;
    source ${HOME}/google-cloud-sdk/path.bash.inc
 fi
 
