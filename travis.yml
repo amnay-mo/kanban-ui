@@ -16,9 +16,3 @@ script:
   - npm run build
   - mkdir html
   - cp -r dist index.html html/
-
-deploy:
-  - provider: script
-    script: .travis/deploy.sh
-    on:
-      tags: true
