@@ -1,0 +1,31 @@
+branches:
+  except:
+    - master
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - CLOUDSDK_CORE_DISABLE_PROMPTS: 1
+
+language: node_js
+
+node_js:
+  - "8"
+
+install:
+  - npm install
+
+script:
+  - npm run build
+  - mkdir html
+  - cp -r dist index.html html/
+
+deploy:
+  provider: script
+  script: .travis/deploy.sh
+  on:
+    tags: true
