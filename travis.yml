@@ -1,0 +1,24 @@
+sudo: false
+
+language: node_js
+
+nodes_js:
+  - "8"
+
+cache:
+  directories:
+    - "node_modules"
+
+install:
+  - npm install
+
+script:
+  - npm run build
+  - mkdir html
+  - cp -r dist index.html html/
+
+deploy:
+  - provider: script
+    script: .travis/build.sh
+    on:
+      tags: true
