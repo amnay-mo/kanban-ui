@@ -13,6 +13,8 @@ gcloud auth activate-service-account --key-file=myfoobarproject-9a043adac874.jso
 
 gcloud auth configure-docker
 
+cd $TRAVIS_BUILD_DIR
+
 docker build -t eu.gcr.io/myfoobarproject/kanban-ui:${TRAVIS_TAG} -t eu.gcr.io/myfoobarproject/kanban-ui:latest .
 
 docker push eu.gcr.io/myfoobarproject/kanban-ui:${TRAVIS_TAG}
