@@ -8,6 +8,7 @@ node_js:
 cache:
   directories:
     - "node_modules"
+    - "/$HOME/google-cloud-sdk"
 
 install:
   - npm install
