@@ -19,6 +19,6 @@ script:
 
 deploy:
   - provider: script
-    script: .travis/build.sh
+    script: .travis/deploy.sh
     on:
       tags: true
