@@ -17,6 +17,9 @@ const mutations = {
                     break
             }
         });
+    },
+    updateToken(state, token) {
+        state.token = token
     }
 }
 

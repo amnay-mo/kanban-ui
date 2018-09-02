@@ -1,12 +1,14 @@
 <template>
-<div>
+<div id="mainApp">
   <center> {{ $store.state.user }} </center>
-  <kanban-board></kanban-board>
+  <router-view></router-view>
 </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import SubBoard from "./Board.vue";
+import { mapActions } from 'vuex'
 export default {
   components: {
     "kanban-board": SubBoard
@@ -15,7 +17,13 @@ export default {
     return {
     };
   },
+  created: function() {
+    this.loadLocalToken()
+  },
   methods: {
+    ...mapActions([
+      'loadLocalToken'
+    ])
   }
 };
 </script>
@@ -28,4 +36,5 @@ export default {
 body {
   font-family: 'C64';
 }
+
 </style>

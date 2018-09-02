@@ -5,6 +5,7 @@ import App from './App.vue'
 require('../node_modules/bulma/bulma.sass')
 
 import store from './store/store'
+import router from './router/routes'
 
 Vue.use(VueResource)
 // Vue.http.options.root = "https://kanban.amnay.fr/api/v1"
@@ -12,5 +13,6 @@ Vue.http.options.root = "http://localhost:9000/api/v1"
 new Vue({
   el: '#app',
   render: h => h(App),
-  store
+  store,
+  router
 })
