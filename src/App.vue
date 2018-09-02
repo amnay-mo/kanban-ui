@@ -1,5 +1,6 @@
 <template>
 <div>
+  <center> {{ $store.state.user }} </center>
   <kanban-board></kanban-board>
 </div>
 </template>

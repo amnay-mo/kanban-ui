@@ -12,27 +12,30 @@
 </template>
 
 <script>
+
+import { mapActions } from 'vuex'
+
 export default {
     props: ['task'],
     methods: {
+        ...mapActions([
+            'updateTask',
+            'removeTask'
+        ]),
         incrementTask() {
             if (this.task.status <= 2) {
                 this.task.status += 1
-                this.$http.patch(`tasks/${this.task.id}`, {status: this.task.status})
-                this.$emit('horizontalMove', 'right')
+                this.updateTask({id: this.task.id, status: this.task.status})                
             }
         },
         decrementTask() {
             if (this.task.status >= 2) {
                 this.task.status -= 1
-                this.$http.patch(`tasks/${this.task.id}`, {status: this.task.status})
-                this.$emit('horizontalMove', 'left')
+                this.updateTask({id: this.task.id, status: this.task.status})                
             }
         },
         deleteTask() {
-            this.task.status = 0
-            this.$http.delete(`tasks/${this.task.id}`)
-            this.$emit('removal')
+            this.removeTask(this.task.id)
         }
     }
 }

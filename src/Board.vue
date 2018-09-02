@@ -7,23 +7,23 @@
       <div class="column status-1">
         <div class="tags has-addons">
           <span class="tag">To Do</span>
-          <span class="tag is-dark">{{ tasksToDo.length }}</span>
+          <span class="tag is-dark">{{ Object.keys(tasksToDo).length }}</span>
         </div>
-          <task-card :task="task" v-for="task in tasksToDo" :key="task.id"></task-card>
+          <task-card :task="task" v-for="(task, taskID) in tasksToDo" :key="taskID"></task-card>
       </div>
       <div class="column status-2">
         <div class="tags has-addons">
           <span class="tag">In Progress</span>
-          <span class="tag is-dark">{{ tasksInProgress.length }}</span>
+          <span class="tag is-dark">{{ Object.keys(tasksInProgress).length }}</span>
         </div>
-          <task-card :task="task" v-for="task in tasksInProgress" :key="task.id"></task-card>
+          <task-card :task="task" v-for="(task, taskID) in tasksInProgress" :key="taskID"></task-card>
       </div>
       <div class="column status-3">
         <div class="tags has-addons">
           <span class="tag">Done</span>
-          <span class="tag is-dark">{{ tasksDone.length }}</span>
+          <span class="tag is-dark">{{ Object.keys(tasksDone).length }}</span>
         </div>
-          <task-card :task="task" v-for="task in tasksDone" :key="task.id"></task-card>
+          <task-card :task="task" v-for="(task, taskID) in tasksDone" :key="taskID"></task-card>
       </div>
     </div>
   </div>
@@ -32,47 +32,38 @@
 
 <script>
 import TaskCard from "./TaskCard.vue";
+
+import { mapState, mapActions } from 'vuex'
+
 export default {
   components: {
     "task-card": TaskCard
   },
   data() {
     return {
-      newTaskText: "",
-      tasks: []
+      newTaskText: ""
     };
   },
   computed: {
-    tasksDeleted() {
-      return this.tasks.filter(task => task.status == 0);
-    },
-    tasksToDo() {
-      return this.tasks.filter(task => task.status == 1);
-    },
-    tasksInProgress() {
-      return this.tasks.filter(task => task.status == 2);
-    },
-    tasksDone() {
-      return this.tasks.filter(task => task.status == 3);
-    }
+    ...mapState([
+      "tasksToDo",
+      "tasksInProgress", 
+      "tasksDone"
+      ]),
   },
   created: function() {
-    this.getTasks();
+    this.refreshTasks()
   },
   methods: {
+    ...mapActions([
+      "refreshTasks",
+      "saveTask"
+    ]),
     postTask(task) {
       return this.$http.post("tasks", task).then(response => {
         let newID = response.body.id;
         console.log(`Got POST response: ${newID}`);
         return newID;
-      });
-    },
-    deleteTask(task) {
-      this.$http.delete("tasks" + task.id);
-    },
-    getTasks() {
-      this.$http.get("tasks").then(response => {
-        this.tasks = response.body.tasks;
       });
     },
     addTask() {
@@ -81,15 +72,13 @@ export default {
           text: this.newTaskText,
           status: 1
         };
-        this.postTask(newTask).then(newTaskID => {
-          newTask.id = newTaskID;
-          this.tasks.unshift(newTask);
-          this.newTaskText = "";
-        });
+        this.saveTask(newTask)
+        this.newTaskText = "";
       }
     }
   }
 };
+
 </script>
 
 <style lang="scss" scoped>
