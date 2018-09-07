@@ -13,6 +13,7 @@ export default new Router({
       name: 'Board',
       component: Board,
       beforeEnter: (to, from, next) => {
+        store.dispatch('checkToken')
         if (store.getters.isAuthenticated) {
           next()
         }

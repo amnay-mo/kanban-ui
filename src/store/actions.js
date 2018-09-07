@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueJwtDecode from 'vue-jwt-decode'
 
 import router from '../router/routes'
 
@@ -8,7 +9,6 @@ const actions = {
             let tasks
             tasks = response.body.tasks;
             commit('updateTasks', tasks);
-            console.log(`updated tasks with: ${JSON.stringify(tasks)}`)
         })
     },
     updateTask({ state, commit }, payload) {
@@ -38,6 +38,23 @@ const actions = {
         }
         else {
             console.log("no token found in local storage")
+        }
+    },
+    checkToken({ state, commit }) {
+        if (state.token != null) {
+            let decodedToken = VueJwtDecode.decode(state.token)
+            let tokenExpirationTime = decodedToken.exp
+            let currentTime = Math.round((new Date().getTime()) / 1000)
+            if (tokenExpirationTime <= currentTime) {
+                console.log(`token expired: ${tokenExpirationTime} < ${currentTime}`)
+                // remove token
+                commit('updateToken', null)
+                localStorage.removeItem("jwtToken")
+                console.log('token removed from local storage')
+            }
+            else {
+                console.log(`token is still valid. expires at ${tokenExpirationTime}`)
+            }
         }
     },
     authenticate({ commit }, credentials) {
