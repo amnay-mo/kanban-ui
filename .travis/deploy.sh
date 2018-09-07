@@ -7,9 +7,9 @@ if [ ! -e ${HOME}/google-cloud-sdk/bin/gcloud ]; then
    source ${HOME}/google-cloud-sdk/path.bash.inc
 fi
 
-openssl aes-256-cbc -K $encrypted_f10587d97a52_key -iv $encrypted_f10587d97a52_iv -in .travis/myfoobarproject-9a043adac874.json.enc -out myfoobarproject-9a043adac874.json -d
+openssl aes-256-cbc -K $encrypted_e2e5c7918611_key -iv $encrypted_e2e5c7918611_iv -in .travis/myfoobarproject-a26bf00c00af.json.enc -out myfoobarproject-a26bf00c00af.json -d
 
-gcloud auth activate-service-account --key-file=myfoobarproject-9a043adac874.json
+gcloud auth activate-service-account --key-file=myfoobarproject-a26bf00c00af.json
 
 gcloud auth configure-docker
 
