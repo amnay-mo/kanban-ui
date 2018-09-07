@@ -7,7 +7,7 @@
     <input class="input is-large" type="text" v-model="email" @keyup.enter="login"/>
     <br>
     <br>
-    <input class="input is-large" type="text" v-model="password" @keyup.enter="login"/>
+    <input class="input is-large" type="password" v-model="password" @keyup.enter="login"/>
   </div>
 </section>
 </template>
