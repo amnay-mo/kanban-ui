@@ -1,6 +1,5 @@
 <template>
-<section class="section" id="login">
-  <div class="container has-text-centered">
+<section class="section has-text-centered" id="login">
     <h1 class="title is-1">Login</h1>
     <br/>
     <br/>
@@ -8,7 +7,6 @@
     <br>
     <br>
     <input class="input is-large" type="password" v-model="password" @keyup.enter="login"/>
-  </div>
 </section>
 </template>
 
@@ -41,7 +39,7 @@ export default {
   font-family: "C64";
   text-align: center;
   width: 100%;
-  border-color: chocolate;
+  border-color: chocolate;  
 }
 
 #login {

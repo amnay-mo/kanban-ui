@@ -20,6 +20,9 @@ const mutations = {
     },
     updateToken(state, token) {
         state.token = token
+    },
+    updateUser(state, user) {
+        state.user = user
     }
 }
 

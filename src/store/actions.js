@@ -35,6 +35,10 @@ const actions = {
             commit("updateToken", token)
             console.log("token successfully loaded from local storage")
             Vue.http.headers.common["Authorization"] = "Bearer " + token
+            let decodedToken = VueJwtDecode.decode(token)
+            let currentUser = decodedToken.user
+            localStorage.setItem('user', currentUser)
+            commit("updateUser", currentUser)
         }
         else {
             console.log("no token found in local storage")
@@ -57,18 +61,25 @@ const actions = {
             }
         }
     },
-    authenticate({ commit }, credentials) {
+    authenticate({ commit, dispatch }, credentials) {
         let email = credentials.email
         let password = credentials.password
         Vue.http.post('auth', { email, password }).then(response => {
             console.log("login successful")
             commit("updateToken", response.body.token)
             localStorage.setItem("jwtToken", response.body.token)
-            Vue.http.headers.common["Authorization"] = "Bearer " + response.body.token
+            dispatch('loadLocalToken')
             router.push('/')
         }, response => {
             console.log("login failed")
         })
+    },
+    endSession({ commit }) {
+        console.log("ending session")
+        localStorage.removeItem("jwtToken")
+        localStorage.removeItem("user")
+        commit("updateToken", null)
+        commit("updateUser", null)
     }
 }
 

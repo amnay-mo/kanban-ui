@@ -1,5 +1,4 @@
 <template>
-<section class="section" id="board">
   <div class="container">
     <input class="input is-large" type="text" v-model="newTaskText" @keyup.enter="addTask"/>
     <hr>
@@ -27,7 +26,6 @@
       </div>
     </div>
   </div>
-</section>
 </template>
 
 <script>

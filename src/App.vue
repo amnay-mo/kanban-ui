@@ -1,21 +1,24 @@
 <template>
-<div id="mainApp">
-  <center> {{ $store.state.user }} </center>
+<div class="container" id="mainApp">
+  <app-navbar v-if="isAuthenticated"></app-navbar>
   <router-view></router-view>
 </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import SubBoard from "./Board.vue";
-import { mapActions } from 'vuex'
+import NavBar from "./NavBar.vue";
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    "kanban-board": SubBoard
+    "app-navbar": NavBar
   },
   data() {
     return {
     };
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated'])
   },
   created: function() {
     this.loadLocalToken()
